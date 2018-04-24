@@ -6,31 +6,13 @@
 #define SORT_INTROSPECTIVE_SORT_H
 
 #include <cmath>
+#include <heapsort.h>
 
 
 template<typename T, class Compare>
 void introspective_sort(T *t, uint32_t size, const Compare &comp, int maxdepth) {
     if (!maxdepth) {
-        for (int i = 1; i < size; ++i) {
-            if (!comp(t[i - 1], t[i])) {
-                auto tym = t[i - 1];
-                t[i - 1] = t[i];
-                t[i] = tym;
-
-                int j = i - 1;
-                while (j > 0) {
-                    if (!comp(t[j - 1], t[j])) {
-                        tym = t[j - 1];
-                        t[j - 1] = t[j];
-                        t[j] = tym;
-
-                        --j;
-                    } else {
-                        break;
-                    }
-                }
-            }
-        }
+        heapsort(t, size, comp);
         return;
     }
 
